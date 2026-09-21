@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#020205">
+  <meta name="description" content="Full of Memories — a cinematic Anakin Skywalker & Padmé Amidala fan experience.">
+  <title>Full of Memories</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="space" aria-hidden="true"></canvas>
+
+  <div class="film" aria-hidden="true"></div>
+  <div class="edge" aria-hidden="true"></div>
+
+  <div id="gate" class="gate">
+    <div class="gate-stars" aria-hidden="true"></div>
+    <p class="gate-kicker">A long time ago, in memories far away</p>
+    <h1>FULL <i>OF</i><br>MEMORIES</h1>
+    <p class="gate-copy">Anakin Skywalker &amp; Padmé Amidala</p>
+    <button id="enter" type="button">
+      <span>Enter the memories</span>
+      <b>↘</b>
+    </button>
+    <p class="gate-note">sound begins after you enter</p>
+  </div>
+
+  <header class="hud">
+    <a class="wordmark" href="#journey">FULL OF MEMORIES</a>
+    <div class="hud-center"><span id="counter">00</span><i></i><span>07</span></div>
+    <button id="sound" class="sound" type="button" aria-label="Toggle music">
+      <span class="bars"><i></i><i></i><i></i></span><em>MUSIC</em>
+    </button>
+  </header>
+
+  <aside class="rail" aria-hidden="true">
+    <span>MEMORY ARCHIVE</span>
+    <div><i id="railFill"></i></div>
+    <b id="chapter">PROLOGUE</b>
+  </aside>
+
+  <main id="journey">
+    <section class="intro scroll-zone" data-label="PROLOGUE">
+      <div class="intro-lock">
+        <p class="eyebrow">DRIFT THROUGH WHAT REMAINS</p>
+        <h2>Some memories<br><em>never stay still.</em></h2>
+        <p class="intro-note">Scroll slowly.</p>
+      </div>
+    </section>
+
+    <section class="memory-zone scroll-zone" data-index="1" data-label="THE FIRST LOOK">
+      <article class="memory memory-left" data-memory="1">
+        <div class="memory-shell">
+          <div class="fallback fb-blue"></div>
+          <video muted playsinline preload="metadata" poster="assets/poster-01.webp">
+            <source src="assets/clip-01.mp4" type="video/mp4">
+          </video>
+          <div class="memory-light"></div>
+          <div class="memory-noise"></div>
+        </div>
+        <div class="memory-text">
+          <span>01 · CORUSCANT</span>
+          <h3>I thought I knew you.</h3>
+          <p>Then you looked at me, and every year between us disappeared.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="memory-zone scroll-zone" data-index="2" data-label="NABOO">
+      <article class="memory memory-right" data-memory="2">
+        <div class="memory-shell">
+          <div class="fallback fb-green"></div>
+          <video muted playsinline preload="metadata" poster="assets/poster-02.webp">
+            <source src="assets/clip-02.mp4" type="video/mp4">
+          </video>
+          <div class="memory-light"></div>
+          <div class="memory-noise"></div>
+        </div>
+        <div class="memory-text">
+          <span>02 · NABOO</span>
+          <h3>The galaxy went quiet.</h3>
+          <p>For one impossible moment, there was no war. Only us.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="memory-zone scroll-zone" data-index="3" data-label="ACROSS THE STARS">
+      <article class="memory memory-center wide" data-memory="3">
+        <div class="memory-shell">
+          <div class="fallback fb-sunset"></div>
+          <video muted playsinline preload="metadata" poster="assets/poster-03.webp">
+            <source src="assets/clip-03.mp4" type="video/mp4">
+          </video>
+          <div class="memory-light"></div>
+          <div class="memory-noise"></div>
+        </div>
+        <div class="memory-text center-text">
+          <span>03 · ACROSS THE STARS</span>
+          <h3>We were never supposed to happen.</h3>
+        </div>
+      </article>
+    </section>
+
+    <section class="memory-zone scroll-zone" data-index="4" data-label="VOWS">
+      <article class="memory memory-left tall" data-memory="4">
+        <div class="memory-shell">
+          <div class="fallback fb-gold"></div>
+          <video muted playsinline preload="metadata" poster="assets/poster-04.webp">
+            <source src="assets/clip-04.mp4" type="video/mp4">
+          </video>
+          <div class="memory-light"></div>
+          <div class="memory-noise"></div>
+        </div>
+        <div class="memory-text">
+          <span>04 · SECRET VOWS</span>
+          <h3>So we chose each other anyway.</h3>
+          <p>Hidden from the world. Still real enough to become the whole world.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="memory-zone scroll-zone" data-index="5" data-label="DISTANCE">
+      <article class="memory memory-right" data-memory="5">
+        <div class="memory-shell">
+          <div class="fallback fb-violet"></div>
+          <video muted playsinline preload="metadata" poster="assets/poster-05.webp">
+            <source src="assets/clip-05.mp4" type="video/mp4">
+          </video>
+          <div class="memory-light"></div>
+          <div class="memory-noise"></div>
+        </div>
+        <div class="memory-text">
+          <span>05 · DISTANCE</span>
+          <h3>Close enough to see.<br>Too far to reach.</h3>
+          <p>Fear began filling every space love could not.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="memory-zone scroll-zone danger" data-index="6" data-label="MUSTAFAR">
+      <article class="memory memory-center wide" data-memory="6">
+        <div class="memory-shell">
+          <div class="fallback fb-red"></div>
+          <video muted playsinline preload="metadata" poster="assets/poster-06.webp">
+            <source src="assets/clip-06.mp4" type="video/mp4">
+          </video>
+          <div class="memory-light"></div>
+          <div class="memory-noise"></div>
+        </div>
+        <div class="memory-text center-text">
+          <span>06 · MUSTAFAR</span>
+          <h3>Then the memory broke.</h3>
+        </div>
+      </article>
+    </section>
+
+    <section class="epilogue scroll-zone" data-index="7" data-label="EPILOGUE">
+      <div class="epilogue-lock">
+        <p class="eyebrow">END OF ARCHIVE</p>
+        <h2>Nothing is really gone<br>while someone <em>remembers.</em></h2>
+        <button id="replay" type="button">REPLAY THE MEMORIES <span>↺</span></button>
+      </div>
+    </section>
+  </main>
+
+  <audio id="track" preload="auto" loop>
+    <source src="assets/tiktok-soundtrack.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
