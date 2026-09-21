@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050914" />
+  <meta name="description" content="Nocturne — a scroll-driven study of motion, metamorphosis, and stillness." />
+  <title>NOCTURNE — Metamorphosis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <canvas id="atmosphere" aria-hidden="true"></canvas>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Nocturne home">
+      <span class="brand-mark"></span>
+      <span>NOCTURNE</span>
+    </a>
+    <div class="header-right">
+      <span class="chapter-indicator"><span id="chapterNumber">01</span> / 04</span>
+      <button class="soundless-pill" type="button" aria-label="Ambient visual status">
+        <span class="pulse-dot"></span>
+        LIVE SPECIMEN
+      </button>
+    </div>
+  </header>
+
+  <div class="progress-rail" aria-hidden="true">
+    <span class="progress-line" id="progressLine"></span>
+  </div>
+
+  <div class="specimen-layer" aria-hidden="true">
+    <div class="specimen-shadow"></div>
+
+    <div class="butterfly-wrap" id="butterflyWrap">
+      <svg class="butterfly" id="butterfly" viewBox="-235 -170 470 340" role="img">
+        <defs>
+          <linearGradient id="wingBlue" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#d9f7ff"/>
+            <stop offset=".15" stop-color="#6ee2ff"/>
+            <stop offset=".42" stop-color="#1b7fff"/>
+            <stop offset=".7" stop-color="#1748c8"/>
+            <stop offset="1" stop-color="#08183d"/>
+          </linearGradient>
+          <radialGradient id="wingGlow" cx=".42" cy=".35" r=".75">
+            <stop offset="0" stop-color="#c9fbff" stop-opacity=".95"/>
+            <stop offset=".2" stop-color="#54ccff" stop-opacity=".8"/>
+            <stop offset=".62" stop-color="#1d4fc4" stop-opacity=".38"/>
+            <stop offset="1" stop-color="#050a1c" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="edgeBlue" x1="0" y1="0" x2="1" y2=".2">
+            <stop offset="0" stop-color="#6eeaff"/>
+            <stop offset=".55" stop-color="#215ee8"/>
+            <stop offset="1" stop-color="#07122f"/>
+          </linearGradient>
+          <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#273656"/>
+            <stop offset=".35" stop-color="#090f1d"/>
+            <stop offset=".72" stop-color="#03060d"/>
+            <stop offset="1" stop-color="#182849"/>
+          </linearGradient>
+          <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="bodyShadow" x="-60%" y="-60%" width="220%" height="220%">
+            <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000716" flood-opacity=".8"/>
+          </filter>
+        </defs>
+
+        <g class="wing wing-left" id="wingLeft">
+          <path class="wing-base" d="M-11,-6 C-46,-89 -132,-157 -204,-140 C-241,-131 -230,-78 -197,-34 C-167,8 -108,31 -52,26 C-30,24 -17,13 -11,-6 Z" fill="url(#wingBlue)"/>
+          <path class="wing-glow" d="M-16,-9 C-58,-88 -133,-143 -193,-129 C-215,-123 -208,-90 -184,-54 C-153,-8 -102,16 -49,16 C-32,15 -22,5 -16,-9 Z" fill="url(#wingGlow)"/>
+          <path class="wing-lower" d="M-14,12 C-50,29 -114,42 -158,76 C-184,96 -174,130 -139,135 C-98,140 -51,102 -29,61 C-19,43 -14,26 -14,12 Z" fill="url(#edgeBlue)"/>
+          <path class="edge" d="M-11,-6 C-46,-89 -132,-157 -204,-140 C-241,-131 -230,-78 -197,-34 C-167,8 -108,31 -52,26 C-30,24 -17,13 -11,-6 Z"/>
+          <path class="edge" d="M-14,12 C-50,29 -114,42 -158,76 C-184,96 -174,130 -139,135 C-98,140 -51,102 -29,61 C-19,43 -14,26 -14,12 Z"/>
+          <g class="veins">
+            <path d="M-18,-2 C-65,-27 -118,-71 -189,-124"/>
+            <path d="M-20,-4 C-67,-50 -102,-98 -128,-141"/>
+            <path d="M-18,1 C-81,-4 -141,-27 -205,-76"/>
+            <path d="M-20,8 C-86,18 -138,4 -190,-24"/>
+            <path d="M-27,19 C-67,45 -105,79 -143,121"/>
+            <path d="M-25,20 C-73,29 -114,46 -157,79"/>
+            <path d="M-58,17 C-75,-28 -87,-76 -87,-113"/>
+            <path d="M-101,13 C-125,-23 -149,-56 -183,-81"/>
+          </g>
+          <g class="scales">
+            <path d="M-186,-110 C-166,-107 -147,-98 -130,-85"/>
+            <path d="M-199,-86 C-171,-79 -149,-66 -132,-48"/>
+            <path d="M-176,-33 C-150,-23 -132,-10 -119,8"/>
+            <path d="M-145,88 C-120,80 -97,70 -76,54"/>
+          </g>
+          <circle class="wing-spot" cx="-174" cy="-104" r="8"/>
+          <circle class="wing-spot small" cx="-143" cy="102" r="5"/>
+        </g>
+
+        <g class="wing wing-right" id="wingRight">
+          <path class="wing-base" d="M11,-6 C46,-89 132,-157 204,-140 C241,-131 230,-78 197,-34 C167,8 108,31 52,26 C30,24 17,13 11,-6 Z" fill="url(#wingBlue)"/>
+          <path class="wing-glow" d="M16,-9 C58,-88 133,-143 193,-129 C215,-123 208,-90 184,-54 C153,-8 102,16 49,16 C32,15 22,5 16,-9 Z" fill="url(#wingGlow)"/>
+          <path class="wing-lower" d="M14,12 C50,29 114,42 158,76 C184,96 174,130 139,135 C98,140 51,102 29,61 C19,43 14,26 14,12 Z" fill="url(#edgeBlue)"/>
+          <path class="edge" d="M11,-6 C46,-89 132,-157 204,-140 C241,-131 230,-78 197,-34 C167,8 108,31 52,26 C30,24 17,13 11,-6 Z"/>
+          <path class="edge" d="M14,12 C50,29 114,42 158,76 C184,96 174,130 139,135 C98,140 51,102 29,61 C19,43 14,26 14,12 Z"/>
+          <g class="veins">
+            <path d="M18,-2 C65,-27 118,-71 189,-124"/>
+            <path d="M20,-4 C67,-50 102,-98 128,-141"/>
+            <path d="M18,1 C81,-4 141,-27 205,-76"/>
+            <path d="M20,8 C86,18 138,4 190,-24"/>
+            <path d="M27,19 C67,45 105,79 143,121"/>
+            <path d="M25,20 C73,29 114,46 157,79"/>
+            <path d="M58,17 C75,-28 87,-76 87,-113"/>
+            <path d="M101,13 C125,-23 149,-56 183,-81"/>
+          </g>
+          <g class="scales">
+            <path d="M186,-110 C166,-107 147,-98 130,-85"/>
+            <path d="M199,-86 C171,-79 149,-66 132,-48"/>
+            <path d="M176,-33 C150,-23 132,-10 119,8"/>
+            <path d="M145,88 C120,80 97,70 76,54"/>
+          </g>
+          <circle class="wing-spot" cx="174" cy="-104" r="8"/>
+          <circle class="wing-spot small" cx="143" cy="102" r="5"/>
+        </g>
+
+        <g class="body" filter="url(#bodyShadow)">
+          <path d="M-4,-103 C-18,-126 -31,-138 -44,-146" class="antenna"/>
+          <path d="M4,-103 C18,-126 31,-138 44,-146" class="antenna"/>
+          <circle cx="-45" cy="-147" r="3.5" class="antenna-tip"/>
+          <circle cx="45" cy="-147" r="3.5" class="antenna-tip"/>
+          <ellipse cx="0" cy="-85" rx="13" ry="17" fill="url(#bodyGrad)"/>
+          <path d="M0,-72 C-13,-62 -14,-22 -9,29 C-7,63 -4,93 0,119 C4,93 7,63 9,29 C14,-22 13,-62 0,-72 Z" fill="url(#bodyGrad)"/>
+          <path d="M-7,-51 C-19,-33 -31,-18 -43,-7" class="leg"/>
+          <path d="M7,-51 C19,-33 31,-18 43,-7" class="leg"/>
+          <path d="M-8,-22 C-25,-5 -34,10 -41,27" class="leg"/>
+          <path d="M8,-22 C25,-5 34,10 41,27" class="leg"/>
+          <g class="body-rings">
+            <path d="M-8,-5 Q0,1 8,-5"/>
+            <path d="M-8,16 Q0,22 8,16"/>
+            <path d="M-7,37 Q0,43 7,37"/>
+            <path d="M-6,58 Q0,63 6,58"/>
+            <path d="M-4,79 Q0,83 4,79"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="cocoon-wrap" id="cocoonWrap">
+      <div class="silk-thread"></div>
+      <svg class="cocoon" viewBox="-90 -160 180 320">
+        <defs>
+          <linearGradient id="chrysalis" x1=".15" y1="0" x2=".85" y2="1">
+            <stop offset="0" stop-color="#8aa9bf"/>
+            <stop offset=".18" stop-color="#35566d"/>
+            <stop offset=".45" stop-color="#132b3e"/>
+            <stop offset=".78" stop-color="#07141f"/>
+            <stop offset="1" stop-color="#28465d"/>
+          </linearGradient>
+          <radialGradient id="chrysalisGlow" cx=".32" cy=".25" r=".8">
+            <stop offset="0" stop-color="#8cecff" stop-opacity=".38"/>
+            <stop offset=".45" stop-color="#1d77b2" stop-opacity=".16"/>
+            <stop offset="1" stop-color="#06111a" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="cocoonShadow" x="-60%" y="-30%" width="220%" height="180%">
+            <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity=".72"/>
+          </filter>
+        </defs>
+        <g filter="url(#cocoonShadow)">
+          <path class="cocoon-shell" d="M0,-145 C-16,-130 -35,-110 -47,-78 C-62,-38 -61,22 -41,68 C-27,101 -11,128 0,148 C12,126 31,98 43,65 C61,17 58,-42 46,-79 C35,-112 17,-134 0,-145Z" fill="url(#chrysalis)"/>
+          <path d="M0,-137 C-13,-121 -28,-101 -36,-76 C-49,-35 -46,16 -31,54 C-20,82 -10,103 -1,123 C8,101 20,82 29,54 C42,13 45,-31 34,-72 C27,-98 14,-120 0,-137Z" fill="url(#chrysalisGlow)"/>
+          <path class="cocoon-ridge" d="M-38,-74 Q0,-55 38,-76"/>
+          <path class="cocoon-ridge" d="M-46,-42 Q0,-21 47,-43"/>
+          <path class="cocoon-ridge" d="M-49,-6 Q0,16 50,-8"/>
+          <path class="cocoon-ridge" d="M-45,31 Q0,48 46,29"/>
+          <path class="cocoon-ridge" d="M-32,72 Q0,84 34,68"/>
+          <path class="cocoon-seam" d="M0,-134 C-8,-79 -4,-22 -1,20 C2,61 1,97 0,136"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <main id="top">
+    <section class="panel hero" data-chapter="01">
+      <div class="eyebrow">AN INTERACTIVE STUDY / 2026</div>
+      <h1>
+        <span class="line">Everything alive</span>
+        <span class="line muted">remembers change.</span>
+      </h1>
+      <p class="hero-copy">Scroll slowly. Follow the blue morpho as motion gives way to stillness.</p>
+      <div class="scroll-cue"><span></span>SCROLL TO DESCEND</div>
+    </section>
+
+    <section class="panel flight" data-chapter="01">
+      <div class="panel-copy left">
+        <div class="chapter-label">01 — FLIGHT</div>
+        <h2>Motion feels<br>like certainty.</h2>
+        <p>Before transformation, there is instinct: lift, drift, correction. A body reading invisible currents.</p>
+      </div>
+      <div class="coordinate">13.773° N<br>88.492° W</div>
+    </section>
+
+    <section class="panel collapse" data-chapter="02">
+      <div class="panel-copy right">
+        <div class="chapter-label">02 — RETURN</div>
+        <h2>The shape begins<br>to fold inward.</h2>
+        <p>Wings narrow. Color recedes. What looked permanent becomes temporary architecture.</p>
+      </div>
+      <div class="giant-word">UNMAKE</div>
+    </section>
+
+    <section class="panel chrysalis-panel" data-chapter="03">
+      <div class="branch" aria-hidden="true">
+        <span class="twig t1"></span>
+        <span class="twig t2"></span>
+        <span class="twig t3"></span>
+      </div>
+      <div class="panel-copy left lower">
+        <div class="chapter-label">03 — CHRYSALIS</div>
+        <h2>Stillness is not<br>the absence of work.</h2>
+        <p>The visible motion is gone. Structure remains, suspended between one form and another.</p>
+      </div>
+    </section>
+
+    <section class="panel quiet" data-chapter="04">
+      <div class="quiet-center">
+        <div class="chapter-label">04 — QUIET</div>
+        <h2>Return to the beginning.</h2>
+        <p>Reverse the scroll and the transformation reverses with you.</p>
+        <a href="#top" class="restart-link">REPLAY <span>↗</span></a>
+      </div>
+      <footer>
+        <span>NOCTURNE / DIGITAL SPECIMEN</span>
+        <span>SCROLL-DRIVEN · NO VIDEO · REAL-TIME</span>
+      </footer>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
