@@ -1,238 +1,176 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#050507" />
-  <meta name="description" content="Full of Memories — an interactive Anakin & Padmé inspired fan experience." />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#020205">
+  <meta name="description" content="Full of Memories — a cinematic Anakin Skywalker & Padmé Amidala fan experience.">
   <title>Full of Memories</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="loader" aria-hidden="true">
-    <div class="loader-mark">
-      <span></span><span></span>
-    </div>
-    <p>recovering memories</p>
+  <canvas id="space" aria-hidden="true"></canvas>
+
+  <div class="film" aria-hidden="true"></div>
+  <div class="edge" aria-hidden="true"></div>
+
+  <div id="gate" class="gate">
+    <div class="gate-stars" aria-hidden="true"></div>
+    <p class="gate-kicker">A long time ago, in memories far away</p>
+    <h1>FULL <i>OF</i><br>MEMORIES</h1>
+    <p class="gate-copy">Anakin Skywalker &amp; Padmé Amidala</p>
+    <button id="enter" type="button">
+      <span>Enter the memories</span>
+      <b>↘</b>
+    </button>
+    <p class="gate-note">sound begins after you enter</p>
   </div>
 
-  <canvas id="starfield" aria-hidden="true"></canvas>
-  <div class="aurora" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
-  <div class="vignette" aria-hidden="true"></div>
-
-  <header class="chrome">
-    <a class="brand" href="#top" aria-label="Full of Memories home">
-      <span>FULL OF</span>
-      <strong>MEMORIES</strong>
-    </a>
-
-    <div class="chrome-right">
-      <span class="chapter-label" id="chapterLabel">Prologue</span>
-      <button class="sound-toggle" id="soundToggle" type="button" aria-label="Toggle soundtrack">
-        <span class="sound-bars"><i></i><i></i><i></i><i></i></span>
-        <span class="sound-text">sound</span>
-      </button>
-    </div>
+  <header class="hud">
+    <a class="wordmark" href="#journey">FULL OF MEMORIES</a>
+    <div class="hud-center"><span id="counter">00</span><i></i><span>07</span></div>
+    <button id="sound" class="sound" type="button" aria-label="Toggle music">
+      <span class="bars"><i></i><i></i><i></i></span><em>MUSIC</em>
+    </button>
   </header>
 
-  <div class="progress-track" aria-hidden="true">
-    <div class="progress-fill" id="progressFill"></div>
-  </div>
+  <aside class="rail" aria-hidden="true">
+    <span>MEMORY ARCHIVE</span>
+    <div><i id="railFill"></i></div>
+    <b id="chapter">PROLOGUE</b>
+  </aside>
 
-  <main id="top">
-    <section class="hero chapter" data-chapter="Prologue" data-palette="night">
-      <div class="hero-orbit orbit-one" aria-hidden="true"></div>
-      <div class="hero-orbit orbit-two" aria-hidden="true"></div>
-
-      <div class="hero-copy">
-        <p class="eyebrow reveal">A story remembered across the stars</p>
-        <h1 class="hero-title" aria-label="Full of Memories">
-          <span>FULL</span>
-          <span class="of">OF</span>
-          <span>MEMORIES</span>
-        </h1>
-        <p class="hero-sub reveal">An interactive archive of Anakin Skywalker &amp; Padmé Amidala.</p>
-      </div>
-
-      <button class="scroll-cue" id="scrollCue" type="button" aria-label="Scroll to the first memory">
-        <span>enter the memory</span>
-        <i></i>
-      </button>
-    </section>
-
-    <section class="memory chapter" data-chapter="01 · Recognition" data-palette="silver">
-      <div class="memory-stage">
-        <div class="memory-media media-portrait" data-tilt>
-          <div class="media-fallback fallback-silver"></div>
-          <img src="assets/memory-01.webp" alt="Anakin and Padmé memory" loading="lazy" />
-          <div class="media-shine"></div>
-          <span class="frame-index">01</span>
-        </div>
-
-        <div class="memory-copy">
-          <p class="memory-kicker">Coruscant · a familiar face</p>
-          <h2>I thought I knew you.</h2>
-          <p>Years pass. People change. And somehow one glance can make the distance between then and now disappear.</p>
-          <span class="memory-line"></span>
-        </div>
-
-        <div class="ghost-word" aria-hidden="true">REMEMBER</div>
+  <main id="journey">
+    <section class="intro scroll-zone" data-label="PROLOGUE">
+      <div class="intro-lock">
+        <p class="eyebrow">DRIFT THROUGH WHAT REMAINS</p>
+        <h2>Some memories<br><em>never stay still.</em></h2>
+        <p class="intro-note">Scroll slowly.</p>
       </div>
     </section>
 
-    <section class="memory chapter" data-chapter="02 · Naboo" data-palette="meadow">
-      <div class="memory-stage stage-reverse">
-        <div class="memory-copy">
-          <p class="memory-kicker">Naboo · where time slowed down</p>
-          <h2>For a moment, the galaxy was quiet.</h2>
-          <p>Fields, sunlight, laughter. Before war and duty crowded in, there was simply the possibility of choosing each other.</p>
-          <span class="memory-line"></span>
-        </div>
-
-        <div class="memory-media media-wide" data-tilt>
-          <div class="media-fallback fallback-meadow"></div>
-          <img src="assets/memory-02.webp" alt="A peaceful Naboo memory" loading="lazy" />
-          <div class="media-shine"></div>
-          <span class="frame-index">02</span>
-        </div>
-
-        <div class="petals" aria-hidden="true"></div>
-      </div>
-    </section>
-
-    <section class="memory chapter cinematic" data-chapter="03 · Across the Stars" data-palette="sunset">
-      <div class="memory-stage full-stage">
-        <div class="cinema-frame">
-          <div class="media-fallback fallback-sunset"></div>
-          <video class="memory-video" muted loop playsinline preload="metadata" poster="assets/memory-03.webp">
-            <source src="assets/memory-03.mp4" type="video/mp4" />
+    <section class="memory-zone scroll-zone" data-index="1" data-label="THE FIRST LOOK">
+      <article class="memory memory-left" data-memory="1">
+        <div class="memory-shell">
+          <div class="fallback fb-blue"></div>
+          <video muted playsinline preload="metadata" poster="assets/poster-01.webp">
+            <source src="assets/clip-01.mp4" type="video/mp4">
           </video>
-          <div class="cinema-scrim"></div>
-          <div class="sun-flare" aria-hidden="true"></div>
+          <div class="memory-light"></div>
+          <div class="memory-noise"></div>
         </div>
-
-        <div class="cinema-copy">
-          <p class="memory-kicker">Naboo · the edge of confession</p>
-          <h2>Some feelings refuse to stay unspoken.</h2>
-          <p>Move your pointer across the frame.</p>
+        <div class="memory-text">
+          <span>01 · CORUSCANT</span>
+          <h3>I thought I knew you.</h3>
+          <p>Then you looked at me, and every year between us disappeared.</p>
         </div>
-
-        <div class="cinema-counter" aria-hidden="true">
-          <span>03</span><i></i><span>07</span>
-        </div>
-      </div>
+      </article>
     </section>
 
-    <section class="memory chapter" data-chapter="04 · Vows" data-palette="ivory">
-      <div class="memory-stage vows-stage">
-        <div class="ring-system" aria-hidden="true">
-          <i></i><i></i><i></i>
+    <section class="memory-zone scroll-zone" data-index="2" data-label="NABOO">
+      <article class="memory memory-right" data-memory="2">
+        <div class="memory-shell">
+          <div class="fallback fb-green"></div>
+          <video muted playsinline preload="metadata" poster="assets/poster-02.webp">
+            <source src="assets/clip-02.mp4" type="video/mp4">
+          </video>
+          <div class="memory-light"></div>
+          <div class="memory-noise"></div>
         </div>
-
-        <div class="memory-media media-vow" data-tilt>
-          <div class="media-fallback fallback-ivory"></div>
-          <img src="assets/memory-04.webp" alt="A secret wedding memory" loading="lazy" />
-          <div class="media-shine"></div>
+        <div class="memory-text">
+          <span>02 · NABOO</span>
+          <h3>The galaxy went quiet.</h3>
+          <p>For one impossible moment, there was no war. Only us.</p>
         </div>
-
-        <div class="memory-copy centered-copy">
-          <p class="memory-kicker">Naboo · secret vows</p>
-          <h2>Us, even when no one else could know.</h2>
-          <p>A promise hidden from the world can still become the center of it.</p>
-        </div>
-      </div>
+      </article>
     </section>
 
-    <section class="interlude chapter" data-chapter="Interlude · Hold to Remember" data-palette="blue">
-      <div class="hologram-wrap">
-        <div class="hologram-card" id="hologramCard" tabindex="0" role="button" aria-label="Press and hold to reveal a memory">
-          <div class="holo-scan"></div>
-          <div class="holo-image">
-            <div class="media-fallback fallback-blue"></div>
-            <img src="assets/memory-05.webp" alt="Anakin and Padmé hologram memory" loading="lazy" />
-          </div>
-          <div class="holo-ui">
-            <span>ARCHIVE // 05</span>
-            <span>HOLD TO REMEMBER</span>
-          </div>
+    <section class="memory-zone scroll-zone" data-index="3" data-label="ACROSS THE STARS">
+      <article class="memory memory-center wide" data-memory="3">
+        <div class="memory-shell">
+          <div class="fallback fb-sunset"></div>
+          <video muted playsinline preload="metadata" poster="assets/poster-03.webp">
+            <source src="assets/clip-03.mp4" type="video/mp4">
+          </video>
+          <div class="memory-light"></div>
+          <div class="memory-noise"></div>
         </div>
-        <p class="hold-note">press and hold</p>
-      </div>
+        <div class="memory-text center-text">
+          <span>03 · ACROSS THE STARS</span>
+          <h3>We were never supposed to happen.</h3>
+        </div>
+      </article>
     </section>
 
-    <section class="memory chapter" data-chapter="05 · Distance" data-palette="city">
-      <div class="memory-stage city-stage">
-        <div class="city-lights" aria-hidden="true"></div>
-
-        <div class="memory-copy city-copy">
-          <p class="memory-kicker">Coruscant · two windows</p>
-          <h2>So close. Still worlds apart.</h2>
-          <p>Love can survive distance. Fear is what begins to fill the space between.</p>
-          <span class="memory-line"></span>
+    <section class="memory-zone scroll-zone" data-index="4" data-label="VOWS">
+      <article class="memory memory-left tall" data-memory="4">
+        <div class="memory-shell">
+          <div class="fallback fb-gold"></div>
+          <video muted playsinline preload="metadata" poster="assets/poster-04.webp">
+            <source src="assets/clip-04.mp4" type="video/mp4">
+          </video>
+          <div class="memory-light"></div>
+          <div class="memory-noise"></div>
         </div>
-
-        <div class="double-frame">
-          <div class="memory-media small-frame left-frame" data-tilt>
-            <div class="media-fallback fallback-night"></div>
-            <img src="assets/memory-06a.webp" alt="Anakin memory" loading="lazy" />
-          </div>
-          <div class="memory-media small-frame right-frame" data-tilt>
-            <div class="media-fallback fallback-gold"></div>
-            <img src="assets/memory-06b.webp" alt="Padmé memory" loading="lazy" />
-          </div>
+        <div class="memory-text">
+          <span>04 · SECRET VOWS</span>
+          <h3>So we chose each other anyway.</h3>
+          <p>Hidden from the world. Still real enough to become the whole world.</p>
         </div>
-      </div>
+      </article>
     </section>
 
-    <section class="memory chapter fracture" data-chapter="06 · Fracture" data-palette="ember">
-      <div class="memory-stage full-stage">
-        <div class="fracture-media">
-          <div class="media-fallback fallback-ember"></div>
-          <img src="assets/memory-07.webp" alt="A final fractured memory" loading="lazy" />
-          <div class="fracture-slices" aria-hidden="true">
-            <i></i><i></i><i></i><i></i><i></i>
-          </div>
+    <section class="memory-zone scroll-zone" data-index="5" data-label="DISTANCE">
+      <article class="memory memory-right" data-memory="5">
+        <div class="memory-shell">
+          <div class="fallback fb-violet"></div>
+          <video muted playsinline preload="metadata" poster="assets/poster-05.webp">
+            <source src="assets/clip-05.mp4" type="video/mp4">
+          </video>
+          <div class="memory-light"></div>
+          <div class="memory-noise"></div>
         </div>
-
-        <div class="fracture-copy">
-          <p class="memory-kicker">Mustafar · the memory breaks</p>
-          <h2>Love remained.<br>Trust did not.</h2>
+        <div class="memory-text">
+          <span>05 · DISTANCE</span>
+          <h3>Close enough to see.<br>Too far to reach.</h3>
+          <p>Fear began filling every space love could not.</p>
         </div>
-
-        <div class="embers" aria-hidden="true"></div>
-      </div>
+      </article>
     </section>
 
-    <section class="finale chapter" data-chapter="Epilogue" data-palette="night">
-      <div class="finale-copy">
-        <p class="eyebrow">The archive ends here</p>
-        <h2>Some stories do not disappear.</h2>
-        <p class="finale-large">They become <em>memories.</em></p>
-        <button class="replay-btn" id="replayBtn" type="button">
-          <span>Replay the memories</span>
-          <i>↺</i>
-        </button>
+    <section class="memory-zone scroll-zone danger" data-index="6" data-label="MUSTAFAR">
+      <article class="memory memory-center wide" data-memory="6">
+        <div class="memory-shell">
+          <div class="fallback fb-red"></div>
+          <video muted playsinline preload="metadata" poster="assets/poster-06.webp">
+            <source src="assets/clip-06.mp4" type="video/mp4">
+          </video>
+          <div class="memory-light"></div>
+          <div class="memory-noise"></div>
+        </div>
+        <div class="memory-text center-text">
+          <span>06 · MUSTAFAR</span>
+          <h3>Then the memory broke.</h3>
+        </div>
+      </article>
+    </section>
+
+    <section class="epilogue scroll-zone" data-index="7" data-label="EPILOGUE">
+      <div class="epilogue-lock">
+        <p class="eyebrow">END OF ARCHIVE</p>
+        <h2>Nothing is really gone<br>while someone <em>remembers.</em></h2>
+        <button id="replay" type="button">REPLAY THE MEMORIES <span>↺</span></button>
       </div>
-      <div class="final-orbit" aria-hidden="true"></div>
     </section>
   </main>
 
-  <footer>
-    <p>Unofficial fan-made experience. Star Wars and its characters belong to their respective rights holders.</p>
-    <p>FULL OF MEMORIES // 2026</p>
-  </footer>
-
-  <audio id="soundtrack" preload="none" loop>
-    <source src="assets/soundtrack.mp3" type="audio/mpeg" />
+  <audio id="track" preload="auto" loop>
+    <source src="assets/tiktok-soundtrack.mp3" type="audio/mpeg">
   </audio>
 
-  <script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
