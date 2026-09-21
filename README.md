@@ -1,36 +1,53 @@
-# Full of Memories
+# Full of Memories — Drift Build
 
-Interactive, scroll-driven Anakin Skywalker & Padmé Amidala fan experience.
+A lightweight cinematic fan experience designed around drifting through Anakin Skywalker and Padmé Amidala memories.
 
-## Preview locally
+## Run locally
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8000`.
+Open `http://localhost:8000`.
 
-## Add your media
+## Required media
 
-Create an `assets` folder in the repository and add:
+Create `assets/` and add your own licensed/personal-use media:
 
-- `memory-01.webp`
-- `memory-02.webp`
-- `memory-03.webp`
-- `memory-03.mp4` (optional cinematic clip)
-- `memory-04.webp`
-- `memory-05.webp`
-- `memory-06a.webp`
-- `memory-06b.webp`
-- `memory-07.webp`
-- `soundtrack.mp3` (optional)
+### Music
+- `tiktok-soundtrack.mp3`
 
-The site has cinematic gradient fallbacks, so it still renders before you add media.
+### Video memories
+- `clip-01.mp4`
+- `clip-02.mp4`
+- `clip-03.mp4`
+- `clip-04.mp4`
+- `clip-05.mp4`
+- `clip-06.mp4`
 
-## Stack
+### Optional posters
+- `poster-01.webp`
+- `poster-02.webp`
+- `poster-03.webp`
+- `poster-04.webp`
+- `poster-05.webp`
+- `poster-06.webp`
 
-Vanilla HTML/CSS/JS, GSAP + ScrollTrigger, Three.js. No build step required.
+If a clip is missing, the site shows a cinematic color fallback instead of breaking.
 
-## Notes
+## Performance changes
 
-Use media you have permission to publish. This is an unofficial fan project.
+This rebuild removes Three.js and GSAP. It uses:
+- one 2D canvas
+- one requestAnimationFrame loop
+- fewer than 500 stars on desktop
+- fewer than 300 stars on mobile
+- only the nearest memory video playing
+- capped canvas pixel ratio
+- CSS transforms instead of layout-heavy animation
+
+## Audio
+
+Browsers block autoplay audio. The opening **Enter the memories** button starts the soundtrack after the required user gesture.
+
+The TikTok link itself cannot be used as a direct audio file URL. Put the audio file you have permission to use at `assets/tiktok-soundtrack.mp3`.
