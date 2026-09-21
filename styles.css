@@ -67,3 +67,51 @@ main{position:relative;z-index:4}
  .intro h2,.epilogue h2{font-size:14vw}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.film{display:none}}
+
+
+.memory-shell{--dissolve:0;--wipe:0;--after:0;isolation:isolate}
+.memory-shell::before{
+  content:"";position:absolute;inset:-4%;z-index:6;pointer-events:none;
+  background:
+    radial-gradient(circle at 16% 22%,rgba(255,255,255,.22) 0 1px,transparent 1.6px),
+    radial-gradient(circle at 72% 36%,rgba(255,255,255,.18) 0 1px,transparent 1.7px),
+    radial-gradient(circle at 38% 76%,rgba(255,255,255,.16) 0 1px,transparent 1.5px);
+  background-size:24px 24px,31px 31px,27px 27px;
+  opacity:calc(var(--dissolve) * .55);
+  filter:blur(calc(var(--dissolve) * 1.2px));
+  mix-blend-mode:screen;
+  transform:scale(calc(1 + var(--dissolve) * .035));
+}
+.memory-shell::after{
+  content:"";position:absolute;inset:0;z-index:7;pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(2,2,5,0) 0%,rgba(2,2,5,.08) 25%,rgba(2,2,5,.68) 72%,#020205 100%),
+    radial-gradient(circle at 50% 50%,transparent 0 42%,rgba(2,2,5,.18) 54%,rgba(2,2,5,.92) 85%,#020205 100%);
+  opacity:var(--dissolve);
+  transform:translateX(calc(var(--wipe) * 18%)) scale(calc(1 + var(--dissolve) * .05));
+  filter:blur(calc(var(--dissolve) * 4px));
+}
+.memory-shell video,.memory-shell .fallback{
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 0 52%,rgba(0,0,0,.97) 64%,rgba(0,0,0,.2) 86%,transparent 100%);
+  mask-image:radial-gradient(circle at 50% 50%,#000 0 52%,rgba(0,0,0,.97) 64%,rgba(0,0,0,.2) 86%,transparent 100%);
+  transform:scale(calc(1 + var(--dissolve) * .09)) translateX(calc(var(--wipe) * -2.5%));
+  filter:
+    brightness(calc(1 + var(--dissolve) * .35))
+    saturate(calc(1 - var(--dissolve) * .45))
+    blur(calc(var(--dissolve) * 1.8px));
+}
+.memory-text{
+  opacity:calc(1 - var(--dissolve) * 1.35);
+  transform:translate3d(calc(var(--wipe) * -18px),calc(var(--dissolve) * -14px),0);
+  filter:blur(calc(var(--dissolve) * 2px));
+}
+.memory::after{
+  content:"";position:absolute;inset:3%;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle,rgba(190,210,255,.18),transparent 58%);
+  opacity:var(--after);
+  filter:blur(28px);
+  transform:scale(calc(1 + var(--after) * .18));
+}
+.memory.dissolving .memory-shell{
+  box-shadow:0 28px 110px rgba(0,0,0,.48),0 0 70px rgba(150,175,220,.12);
+}
