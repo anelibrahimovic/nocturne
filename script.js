@@ -14,7 +14,7 @@ const memories=[...document.querySelectorAll(".memory")];
 
 let W=innerWidth,H=innerHeight,dpr=1;
 let scrollY=0,targetY=0,mouseX=0,mouseY=0;
-let stars=[],bursts=[],lastBurst=-1,lastActive=-1;
+let stars=[],bursts=[],afterimages=[],lastBurst=-1,lastActive=-1;
 let entered=false,muted=false;
 const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const coarse=matchMedia("(pointer: coarse)").matches;
@@ -61,9 +61,9 @@ function drawSpace(){
     ctx.lineWidth=Math.max(.4,s.s*(1.08-s.z));
     ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(x,y);ctx.stroke();
   }
-  drawBursts();
+  drawBursts();\n  drawAfterimages();
 }
-function burst(x,y,warm=false){
+function spawnAfterimage(mem,warm=false){\n  const r=mem.getBoundingClientRect();\n  afterimages.push({x:r.left+r.width/2,y:r.top+r.height/2,w:r.width,h:r.height,life:1,warm});\n}\nfunction drawAfterimages(){\n  for(let i=afterimages.length-1;i>=0;i--){\n    const a=afterimages[i];\n    a.life-=.018;\n    if(a.life<=0){afterimages.splice(i,1);continue}\n    const g=ctx.createRadialGradient(a.x,a.y,0,a.x,a.y,Math.max(a.w,a.h)*.55);\n    const c=a.warm?"224,96,48":"176,200,242";\n    g.addColorStop(0,`rgba(${c},${a.life*.11})`);\n    g.addColorStop(.5,`rgba(${c},${a.life*.045})`);\n    g.addColorStop(1,"rgba(0,0,0,0)");\n    ctx.fillStyle=g;\n    ctx.fillRect(a.x-a.w*.75,a.y-a.h*.75,a.w*1.5,a.h*1.5);\n  }\n}\nfunction burst(x,y,warm=false){
   const n=W<760?28:46;
   for(let i=0;i<n;i++){
     const a=Math.random()*Math.PI*2;
@@ -105,7 +105,7 @@ function updateScenes(){
   memoryZones.forEach((zone,i)=>{
     const mem=memories[i];
     const p=localProgress(zone);
-    const t=sceneTransform(p,i);
+    const t=sceneTransform(p,i);\n    const dissolve=Math.max(0,Math.min(1,(p-.64)/.30));\n    const shell=mem.querySelector(".memory-shell");\n    shell.style.setProperty("--dissolve",dissolve.toFixed(3));\n    shell.style.setProperty("--wipe",Math.pow(dissolve,.8).toFixed(3));\n    mem.style.setProperty("--after",Math.max(0,1-Math.abs(p-.79)/.12).toFixed(3));\n    mem.classList.toggle("dissolving",dissolve>.02);
     const dx=coarse?0:mouseX*10*(1-Math.abs(.5-p));
     const dy=coarse?0:mouseY*8*(1-Math.abs(.5-p));
     mem.style.visibility=(p>.015&&p<.995)?"visible":"hidden";
@@ -115,7 +115,7 @@ function updateScenes(){
     if(dist<best){best=dist;active=i}
     if(p>.73&&p<.78&&lastBurst!==i){
       lastBurst=i;
-      burst(W/2+(i%2?W*.1:-W*.1),H/2,i===memoryZones.length-1);
+      spawnAfterimage(mem,i===memoryZones.length-1);\n      burst(W/2+(i%2?W*.1:-W*.1),H/2,i===memoryZones.length-1);
       mem.animate([
         {filter:"brightness(1) blur(0px)"},
         {filter:"brightness(1.7) blur(1px)"},
