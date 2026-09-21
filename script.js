@@ -140,6 +140,7 @@
 
   let atmosphereFrame = 0;
   function drawAtmosphere(t) {
+    if (!raf) render();
     ctx.clearRect(0, 0, innerWidth, innerHeight);
     const p = progress;
     for (const dot of particles) {
